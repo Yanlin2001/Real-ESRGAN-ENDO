@@ -3,7 +3,7 @@ import random
 import torch
 from basicsr.data.degradations import random_add_gaussian_noise_pt, random_add_poisson_noise_pt
 from basicsr.data.transforms import paired_random_crop
-from basicsr.models.srgan_model import SRGANModel
+from models.srgan_model import SRGANModel_save
 from basicsr.utils import DiffJPEG, USMSharp
 from basicsr.utils.img_process_util import filter2D
 from basicsr.utils.registry import MODEL_REGISTRY
@@ -12,7 +12,7 @@ from torch.nn import functional as F
 
 
 @MODEL_REGISTRY.register()
-class RealESRGANModel(SRGANModel):
+class RealESRGANModel(SRGANModel_save):
     """RealESRGAN Model for Real-ESRGAN: Training Real-World Blind Super-Resolution with Pure Synthetic Data.
 
     It mainly performs:
