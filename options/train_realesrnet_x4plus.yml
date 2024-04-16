@@ -1,5 +1,5 @@
 # general settings
-name: train_RealESRNetx4plus_1000k_B12G4
+name: train_RealESRNetx4plus_endo1
 model_type: RealESRNetModel
 scale: 4
 num_gpu: auto  # auto: can infer from your visible devices automatically. official: 4 GPUs
