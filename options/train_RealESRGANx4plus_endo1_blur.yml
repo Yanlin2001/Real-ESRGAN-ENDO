@@ -1,7 +1,7 @@
 # general settings
 name: train_RealESRGANx4plus_endo1_blur
 model_type: RealESRGANModel
-scale: 4
+scale: 1
 num_gpu: auto  # auto: can infer from your visible devices automatically. official: 4 GPUs
 manual_seed: 0
 
@@ -14,20 +14,20 @@ gan_gt_usm: False
 # the first degradation process
 resize_prob: [0.0, 0.0, 1.0]  # up, down, keep
 resize_range: [0.9, 1.1]
-gaussian_noise_prob: 0.5
-noise_range: [1, 30]
-poisson_scale_range: [0.05, 3]
-gray_noise_prob: 0.4
+gaussian_noise_prob: 0.0
+noise_range: [1, 2]
+poisson_scale_range: [0.01, 0.02]
+gray_noise_prob: 0.0
 jpeg_range: [98, 99]
 
 # the second degradation process
-second_blur_prob: 0.0
+second_blur_prob: 0.8
 resize_prob2: [0.0, 0.0, 1.0]  # up, down, keep
 resize_range2: [0.9, 1.1]
-gaussian_noise_prob2: 0.5
-noise_range2: [1, 25]
-poisson_scale_range2: [0.05, 2.5]
-gray_noise_prob2: 0.4
+gaussian_noise_prob2: 0.0
+noise_range2: [1, 2]
+poisson_scale_range2: [0.01, 0.02]
+gray_noise_prob2: 0.0
 jpeg_range2: [98, 99]
 
 gt_size: 256
@@ -43,23 +43,23 @@ datasets:
     io_backend:
       type: disk
 
-    blur_kernel_size: 1
+    blur_kernel_size: 21
     kernel_list: ['iso', 'aniso', 'generalized_iso', 'generalized_aniso', 'plateau_iso', 'plateau_aniso']
     kernel_prob: [0.45, 0.25, 0.12, 0.03, 0.12, 0.03]
-    sinc_prob: 0.0
+    sinc_prob: 0.1
     blur_sigma: [0.2, 3]
     betag_range: [0.5, 4]
     betap_range: [1, 2]
 
-    blur_kernel_size2: 1
+    blur_kernel_size2: 21
     kernel_list2: ['iso', 'aniso', 'generalized_iso', 'generalized_aniso', 'plateau_iso', 'plateau_aniso']
     kernel_prob2: [0.45, 0.25, 0.12, 0.03, 0.12, 0.03]
-    sinc_prob2: 0.0
+    sinc_prob2: 0.1
     blur_sigma2: [0.2, 1.5]
     betag_range2: [0.5, 4]
     betap_range2: [1, 2]
 
-    final_sinc_prob: 0.0
+    final_sinc_prob: 0.8
 
     gt_size: 256
     use_hflip: True
@@ -95,13 +95,12 @@ network_d:
   type: UNetDiscriminatorSN
   num_in_ch: 3
   num_feat: 64
-  scale: 1
   skip_connection: True
 
 # path
 path:
   # use the pre-trained Real-ESRNet model
-  pretrain_network_g: /kaggle/input/noisejpge/train_RealESRNetx4plus_endo1_noise.pth
+  pretrain_network_g: /kaggle/input/srblur/train_RealESRNetx4plus_endo1_blur.pth
   param_key_g: params_ema
   strict_load_g: true
   resume_state: ~
