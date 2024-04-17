@@ -1,7 +1,7 @@
 # general settings
 name: train_RealESRGANx4plus_endo1_noise
 model_type: RealESRGANModel
-scale: 4
+scale: 1
 num_gpu: auto  # auto: can infer from your visible devices automatically. official: 4 GPUs
 manual_seed: 0
 
@@ -95,7 +95,6 @@ network_d:
   type: UNetDiscriminatorSN
   num_in_ch: 3
   num_feat: 64
-  scale: 1
   skip_connection: True
 
 # path
