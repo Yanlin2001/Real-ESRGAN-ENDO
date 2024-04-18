@@ -89,7 +89,6 @@ train:
     loss_weight: 1.0
     reduction: mean
 
-
 # Uncomment these for validation
 val:
   val_freq: !!float 2e4
