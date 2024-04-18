@@ -1,4 +1,4 @@
-name: test_RealESRGAN_endo1_jpeg
+name: test_RealESRGAN_endo1_noise
 model_type: RealESRNetModel
 scale: 1
 num_gpu: 1  # set num_gpu: 0 for cpu mode
@@ -9,11 +9,9 @@ datasets:
     name: abd_rot90
     type: PairedImageDataset
     dataroot_gt: datasets/test/lq
-    dataroot_lq: datasets/test/lq
+    dataroot_lq: results/test_RealESRGAN_endo1_jpeg/visualization/abd_rot90
     io_backend:
       type: disk
-
-# /kaggle/working/Real-ESRGAN-ENDO/results/test_RealESRGAN_endo1_jpeg/visualization/abd_rot90
 
 # network structures
 network_g:
@@ -27,7 +25,7 @@ network_g:
 
 # path
 path:
-  pretrain_network_g: experiments/pretrained_models/endotest0418/jpeg_net_g_60000.pth
+  pretrain_network_g: experiments/pretrained_models/endotest0418/noise_net_g_60000.pth
   strict_load_g: true
 
 # validation settings
