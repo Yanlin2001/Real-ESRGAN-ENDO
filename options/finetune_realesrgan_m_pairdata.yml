@@ -17,8 +17,8 @@ datasets:
   train:
     name: motion
     type: RealESRGANPairedDataset
-    dataroot_gt: datasets/motion/train/gt
-    dataroot_lq: datasets/motion/train/lq
+    dataroot_gt: datasets/motion/train
+    dataroot_lq: datasets/motion/train
     meta_info: datasets/meta_info/motion_pair.txt
     io_backend:
       type: disk
