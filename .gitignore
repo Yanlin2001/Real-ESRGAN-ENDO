@@ -1,5 +1,5 @@
 # ignored folders
-experiments/*
+# experiments/*
 results/*
 tb_logger/*
 wandb/*
