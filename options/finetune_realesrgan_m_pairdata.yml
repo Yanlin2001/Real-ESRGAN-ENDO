@@ -1,6 +1,6 @@
 # general settings
 name: finetune_realesrgan_m_pairdata
-model_type: RealESRGANModel
+model_type: RealESRNetModel
 scale: 1
 num_gpu: auto
 manual_seed: 0
