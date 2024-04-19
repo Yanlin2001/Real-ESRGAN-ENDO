@@ -62,7 +62,7 @@ network_d:
 # path
 path:
   # use the pre-trained Real-ESRNet model
-  pretrain_network_g: ~
+  pretrain_network_g: kaggle/input/mrealesrnet/net_g_80000.pth
   param_key_g: params_ema
   strict_load_g: true
   pretrain_network_d: ~
