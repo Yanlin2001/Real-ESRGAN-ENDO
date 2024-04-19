@@ -1,7 +1,7 @@
 # general settings
-name: finetune_RealESRGANx4plus_400k_pairdata
+name: finetune_realesrgan_mgan_pairdata
 model_type: RealESRGANModel
-scale: 4
+scale: 1
 num_gpu: auto
 manual_seed: 0
 
@@ -15,11 +15,11 @@ high_order_degradation: False # do not use the high-order degradation generation
 # dataset and data loader settings
 datasets:
   train:
-    name: DIV2K
+    name: motion
     type: RealESRGANPairedDataset
-    dataroot_gt: datasets/motion/train/gt
-    dataroot_lq: datasets/motion/train/lq
-    meta_info: datasets/DF2K/meta_info/meta_info_DIV2K_sub_pair.txt
+    dataroot_gt: datasets/motion/train
+    dataroot_lq: datasets/motion/train
+    meta_info: datasets/meta_info/motion_pair.txt
     io_backend:
       type: disk
 
@@ -38,8 +38,8 @@ datasets:
   val:
     name: validation
     type: PairedImageDataset
-    dataroot_gt: datasets/test/hq
-    dataroot_lq: datasets/test/lq
+    dataroot_gt: datasets/motion/test/gt
+    dataroot_lq: datasets/motion/test/lq
     io_backend:
       type: disk
 
@@ -53,12 +53,21 @@ network_g:
   num_grow_ch: 32
   scale: 1
 
+network_d:
+  type: UNetDiscriminatorSN
+  num_in_ch: 3
+  num_feat: 64
+  skip_connection: True
+
 # path
 path:
   # use the pre-trained Real-ESRNet model
   pretrain_network_g: ~
   param_key_g: params_ema
   strict_load_g: true
+  pretrain_network_d: ~
+  param_key_d: params
+  strict_load_d: true
   resume_state: ~
 
 # training settings
@@ -88,6 +97,32 @@ train:
     type: L1Loss
     loss_weight: 1.0
     reduction: mean
+  # perceptual loss (content and style losses)
+  perceptual_opt:
+    type: PerceptualLoss
+    layer_weights:
+      # before relu
+      'conv1_2': 0.1
+      'conv2_2': 0.1
+      'conv3_4': 1
+      'conv4_4': 1
+      'conv5_4': 1
+    vgg_type: vgg19
+    use_input_norm: true
+    perceptual_weight: !!float 1.0
+    style_weight: 0
+    range_norm: false
+    criterion: l1
+  # gan loss
+  gan_opt:
+    type: GANLoss
+    gan_type: vanilla
+    real_label_val: 1.0
+    fake_label_val: 0.0
+    loss_weight: !!float 1e-1
+
+  net_d_iters: 1
+  net_d_init_iters: 0
 
 # Uncomment these for validation
 val:
